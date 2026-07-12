@@ -1,0 +1,13 @@
+services:
+  telegram-bot:
+    build: .
+
+    container_name: potatohan-alert-bot
+
+    env_file:
+      - .env
+
+    volumes:
+      - ./database:/database
+
+    restart: unless-stopped
