@@ -188,56 +188,12 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
             level_text = "未設定"
             weather = "未設定"
 
-        keyboard = [
-            [
-                InlineKeyboardButton(
-                    "⬅ 返回首頁",
-                    callback_data="home"
-                )
-            ]
-        ]
+        from keyboards.settings import settings_keyboard
 
         await query.edit_message_text(
             f"⚙️ 我的訂閱\n\n"
-            f"🚨 地震速報：{level_text}\n"
+            f"🚨 地震通知：{level_text}\n"
             f"🌤 天氣通知：{weather}\n"
             f"📧 Email：未綁定",
-            reply_markup=InlineKeyboardMarkup(keyboard),
-        )
-    # ========================
-    # 使用說明
-    # ========================
-    elif query.data == "help":
-
-        keyboard = [
-            [
-                InlineKeyboardButton(
-                    "⬅ 返回首頁",
-                    callback_data="home"
-                )
-            ]
-        ]
-
-        await query.edit_message_text(
-            "📖 PotatoHan Alert\n\n"
-            "Version 1.2 Alpha\n\n"
-            "目前功能：\n"
-            "✅ 地震速報訂閱\n"
-            "🚧 地震分析\n"
-            "🚧 天氣通知\n"
-            "🚧 Email 綁定\n\n"
-            "© 2026 PotatoHan™ — 馬鈴薯飯\n"
-            "All Rights Reserved.\n"
-            "📧 contact@potatohan.com",
-            reply_markup=InlineKeyboardMarkup(keyboard),
-        )
-
-    # ========================
-    # 未知按鈕
-    # ========================
-    else:
-
-        await query.answer(
-            "⚠️ 未知功能",
-            show_alert=True,
+            reply_markup=settings_keyboard()
         )
