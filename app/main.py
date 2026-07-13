@@ -10,10 +10,13 @@ from telegram.ext import (
 from handlers.start import start
 from handlers.callback import callback_handler
 from database.database import init_database
+
 load_dotenv()
 
 TOKEN = os.getenv("BOT_TOKEN")
+
 init_database()
+
 if not TOKEN:
     raise RuntimeError("BOT_TOKEN 未設定")
 
