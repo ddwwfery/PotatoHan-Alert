@@ -164,43 +164,46 @@ async def callback_handler(update: Update, context: ContextTypes.DEFAULT_TYPE):
     # ========================
     elif query.data == "settings":
 
-    sub = get_subscription(query.from_user.id)
+        sub = get_subscription(query.from_user.id)
 
-    if sub:
+        if sub:
 
-        level = sub["earthquake_level"]
+            level = sub["earthquake_level"]
 
-        if level == 0:
-            level_text = "🌍 全部地震"
-        elif level == 3:
-            level_text = "🟢 3級以上"
-        elif level == 4:
-            level_text = "🟠 4級以上"
-        elif level == 5:
-            level_text = "🔴 5級以上"
+            if level == 0:
+                level_text = "🌍 全部地震"
+            elif level == 3:
+                level_text = "🟢 3級以上"
+            elif level == 4:
+                level_text = "🟠 4級以上"
+            elif level == 5:
+                level_text = "🔴 5級以上"
+            else:
+                level_text = "未設定"
+
+            weather = "✅ 開啟" if sub["weather_enable"] else "❌ 關閉"
+
         else:
+
             level_text = "未設定"
+            weather = "未設定"
 
-        weather = "✅ 開啟" if sub["weather_enable"] else "❌ 關閉"
-
-    else:
-
-        level_text = "未設定"
-        weather = "未設定"
-
-    keyboard = [
-        [
-            InlineKeyboardButton("⬅ 返回首頁", callback_data="home")
+        keyboard = [
+            [
+                InlineKeyboardButton(
+                    "⬅ 返回首頁",
+                    callback_data="home"
+                )
+            ]
         ]
-    ]
 
-    await query.edit_message_text(
-        f"⚙️ 我的訂閱\n\n"
-        f"🚨 地震速報：{level_text}\n"
-        f"🌤 天氣通知：{weather}\n"
-        f"📧 Email：未綁定",
-        reply_markup=InlineKeyboardMarkup(keyboard)
-    )
+        await query.edit_message_text(
+            f"⚙️ 我的訂閱\n\n"
+            f"🚨 地震速報：{level_text}\n"
+            f"🌤 天氣通知：{weather}\n"
+            f"📧 Email：未綁定",
+            reply_markup=InlineKeyboardMarkup(keyboard),
+        )
     # ========================
     # 使用說明
     # ========================
