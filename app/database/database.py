@@ -56,6 +56,26 @@ def init_database():
 
     )
     """)
+    
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS earthquake_history (
+    
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+    
+        earthquake_no TEXT UNIQUE,
+    
+        origin_time TEXT,
+    
+        magnitude REAL,
+    
+        depth REAL,
+    
+        location TEXT,
+    
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+    )
+    
+    """)
 
     conn.commit()
     conn.close()
